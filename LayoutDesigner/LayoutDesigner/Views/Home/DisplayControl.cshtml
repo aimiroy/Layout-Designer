@@ -1,0 +1,138 @@
+﻿@model List<LayoutDesigner.Models.Control>
+@{
+    ViewBag.Title = "DisplayControl";
+}
+<h2 style="align-self:center">Custom Layout</h2>
+@{
+    foreach (var item in Model)
+    {
+        switch (item.Type)
+        {
+            case "Textbox":
+
+                            if (@item.IsVisible)
+                            {
+                                <label class="control-label col-md-2">@item.Label</label>
+                                if (@item.IsReadOnly)
+                                {
+                                    <input type="text" style="visibility:visible" readonly id=@item.ControlId class = "form-control"/>
+                                }
+                                else
+                                {
+                                    <input type="text" style="visibility:visible" id=@item.ControlId class = "form-control"/>
+                                }
+                            }
+                            else
+                            {
+                                    <label class="control-label col-md-2" style="visibility:hidden">@item.Label</label>
+                                    <input type="text" id=@item.ControlId style="visibility:hidden"/>
+                            }
+
+
+                break;
+
+            case "Number":
+                           if (@item.IsVisible)
+                           {
+                                <label class="control-label col-md-2">@item.Label</label>
+                                if (@item.IsReadOnly)
+                                {
+                                    <input type="number" style="visibility:visible" id=@item.ControlId readonly class = "form-control"/>
+                                }
+                                else
+                                {
+                                    <input type="number" style="visibility:visible" id=@item.ControlId class="form-control"/>
+                                }
+
+                           }
+                           else
+                           {
+                                    <label class="control-label col-md-2" style="visibility:hidden">@item.Label</label>
+                                    <input type="number" style="visibility:hidden" id=@item.ControlId/>
+                           }
+                break;
+
+            case "Dropdown":
+                             if (@item.IsVisible)
+                             {
+                                <label class="control-label col-md-2">@item.Label</label>
+                                if (@item.IsReadOnly)
+                                {
+                                    <select id=@item.ControlId style="visibility:visible" disabled class = "form-control">
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id=@item.ControlId style="visibility:visible" class = "form-control">
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                }
+
+
+                               }
+                                else
+                                {
+                                    <label class="control-label col-md-2" style="visibility:hidden">@item.Label</label>
+                                    <select id=@item.ControlId style="visibility:hidden">
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                    </select>
+                                }
+                break;
+
+            case "Checkbox":
+                            if (@item.IsVisible)
+                            {
+                                <label class="control-label col-md-2">@item.Label</label>
+                                if (@item.IsReadOnly)
+                                {
+                                    <input type="checkbox" style="visibility:visible" id=@item.ControlId readonly class = "checkbox"/>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" style="visibility:visible" id=@item.ControlId class = "checkbox"/>
+                                }
+
+                            }
+                            else
+                            {
+                                    <input type="checkbox" style="visibility:hidden" id=@item.ControlId/>
+                            }
+                break;
+
+            case "TextArea":
+                            if (@item.IsVisible)
+                            {
+                                <label class="control-label col-md-2">@item.Label</label>
+                                if (@item.IsReadOnly)
+                                {
+                                    <textarea style="visibility:visible" id=@item.ControlId readonly class = "form-control"></textarea>
+                                }
+                                else
+                                {
+                                    <textarea style="visibility:visible" id=@item.ControlId class = "form-control"></textarea>
+                                }
+
+                            }
+                            else
+                            {
+                                    <label class="control-label col-md-2" style="visibility:hidden">@item.Label</label>
+                                    <textarea id=@item.ControlId style="visibility:hidden"></textarea>
+                            }
+                break;
+        }
+        <br/>
+    }
+
+}
+
+

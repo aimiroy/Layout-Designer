@@ -1,0 +1,60 @@
+﻿@model IEnumerable<LayoutDesigner.Models.Control>
+@{
+    ViewBag.Title = "Customize Controls";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Customize Controls</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+    <script type="text/javascript" src="~/scripts/render.js"></script>
+    <link href="~/Content/Tablestyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <table id="tblControls" class="table table-bordered table-hover table-striped table-responsive success" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr class="alert-success">
+                <th>Control Id</th>
+                <th>Label</th>
+                <th>Type</th>
+                <th>Is Visible</th>
+                <th>Is Read-Only</th>
+                <th>Order</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-bordered">
+                    <td>@item.ControlId</td>
+                    <td>@item.Label</td>
+                    <td>@item.Type</td>
+                    <td>@item.IsVisible</td>
+                    <td>@item.IsReadOnly</td>
+                    <td>@item.Order</td>
+                    <td><input type="button" value="Remove" onclick="Remove(this)" class="btn btn-warning"/></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="table-bordered">
+                <td><input type="text" id="txtControlId" class="form-control"/></td>
+                <td><input type="text" id="txtLabel" class="form-control"/></td>
+                <td><select id="selectType" class="form-control"><option>Textbox</option><option>Number</option><option>Dropdown</option><option>Checkbox</option><option>TextArea</option></select></td>
+                <td><input type="checkbox" id="chkVisible" value="yes" class="checkbox"/></td>
+                <td><input type="checkbox" id="chkReadOnly" value="yes" class="checkbox"/></td>
+                <td><input type="number" id="txtOrder" class="form-control"/></td>
+                <td><input type="button" id="btnAdd" value="Add" class="btn btn-danger"/></td>
+            </tr>
+        </tfoot>
+    </table>
+    <br />
+    <input type="button" id="btnSave" value="Next Page" class="btn btn-block btn-success" style="float:right;"/>
+    <br/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+</body>
+</html>
