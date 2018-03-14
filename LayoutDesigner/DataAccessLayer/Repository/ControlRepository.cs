@@ -16,12 +16,10 @@ namespace DataAccessLayer.Repository
         /// <returns>void</returns>
         public void InsertControl(List<Control> controlData)
         {
+            ClearLayout();
+
             using (ControlContext context = new ControlContext())
             {
-                //Delete all records
-                var itemsToDelete = context.Set<Control>();
-                context.controls.RemoveRange(itemsToDelete);
-
                 //Insert data to database
                 context.controls.AddRange(controlData);
                 context.SaveChanges();
@@ -39,6 +37,20 @@ namespace DataAccessLayer.Repository
             {
                 var controlData = context.controls.ToList();
                 return controlData;
+            }
+        }
+
+        /// <summary>
+        ///Delete all control records in database. 
+        /// </summary>
+        public void ClearLayout()
+        {
+            using (ControlContext context = new ControlContext())
+            {
+                //Delete all records
+                var itemsToDelete = context.Set<Control>();
+                context.controls.RemoveRange(itemsToDelete);
+                context.SaveChanges();
             }
         }
     }

@@ -3,6 +3,8 @@
     ViewBag.Title = "DisplayControl";
 }
 <h2 style="align-self:center">Custom Layout</h2>
+@Html.ActionLink("Create New Layout", "Index", "Home", null, new { @class = "btn btn-primary" })
+<br />
 @{
     foreach (var item in Model)
     {

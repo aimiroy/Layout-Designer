@@ -1,4 +1,5 @@
-﻿$("body").on("click", "#btnAdd", function () {
+﻿var addedCountrolCount = 0;
+$("body").on("click", "#btnAdd", function () {
     if (validateForm()) {
         //Reference the TextBoxes.
         var txtControlId = $("#txtControlId");
@@ -55,7 +56,7 @@
         btnRemove.val("Remove");
         cell.append(btnRemove);
 
-        //Clear the TextBoxes.
+        //Clear the TextBoxes and other controls.
         txtControlId.val("");
         txtLabel.val("");
         selectType.find('option:selected').text("Textbox");
@@ -84,6 +85,7 @@ function Remove(button) {
 };
 
 $("body").on("click", "#btnSave", function () {
+   
     //Loop through the Table rows and build a JSON array.
     var controls = new Array();
     $("#tblControls TBODY TR").each(function () {
@@ -92,16 +94,14 @@ $("body").on("click", "#btnSave", function () {
         control.ControlId = row.find("TD").eq(0).html();
         control.Label = row.find("TD").eq(1).html();
         control.Type = row.find("TD").eq(2).html();
-        if (row.find("TD").eq(3).html() == 'Yes')
+        if (row.find("TD").eq(3).html() == 'Yes' || row.find("TD").eq(3).html() == 'True')
             control.IsVisible = 'true';
         else
             control.IsVisible = 'false';
-        if (row.find("TD").eq(4).html() == 'Yes')
+        if (row.find("TD").eq(4).html() == 'Yes' || row.find("TD").eq(4).html() == 'True')
             control.IsReadOnly = 'true';
         else
             control.IsReadOnly = 'false';
-        //control.IsVisible = row.find("TD").eq(3).html();
-        //control.IsReadOnly = row.find("TD").eq(4).html();
         control.Order = row.find("TD").eq(5).html();
         controls.push(control);
     });
@@ -109,16 +109,14 @@ $("body").on("click", "#btnSave", function () {
         alert("Controls are needed to render the view!  Add Controls");
     }
     else {
-
-
-        //Send the JSON array to Controller using AJAX.
-        $.ajax({
-            type: "POST",
-            url: "/Home/InsertControls",
-            data: JSON.stringify(controls),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            complete: function (result) {
+            //Send the JSON array to Controller using AJAX.
+            $.ajax({
+                type: "POST",
+                url: "/Home/InsertControls",
+                data: JSON.stringify(controls),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                complete: function (result) {
                 if (result.responseText) {
                     $('body').html(result.responseText);
                 }

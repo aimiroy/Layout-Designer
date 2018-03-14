@@ -21,7 +21,7 @@ namespace LayoutDesigner.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var controlList = new List<Control>();
+            var controlList = GetStoredControl();
             return View(controlList);
         }
 
@@ -44,6 +44,22 @@ namespace LayoutDesigner.Controllers
 
         public ActionResult DisplayControl()
         {
+            var controlToShow = GetStoredControl();
+            return View(controlToShow);
+        }
+
+        public ActionResult ClearLayout()
+        {
+            _controlService.ClearLayout();
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Get Currently Controls Data.
+        /// </summary>
+        /// <returns></returns>
+        public List<Control> GetStoredControl()
+        {
             var dto = _controlService.GetControlData();
             var controlToShow = dto.Select(x => new Control
             {
@@ -54,8 +70,7 @@ namespace LayoutDesigner.Controllers
                 IsReadOnly = x.IsReadOnly,
                 Order = x.Order
             }).ToList();
-            return View(controlToShow);
+            return controlToShow;
         }
-
     }
 }

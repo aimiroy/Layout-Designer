@@ -11,5 +11,6 @@ namespace BuisnessLayer.Services
     {
        void StoreControl(List<ControlDTO> controls);
        List<ControlDTO> GetControlData();
+       void ClearLayout();
     }
 }

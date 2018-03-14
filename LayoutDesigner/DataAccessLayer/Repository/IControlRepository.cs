@@ -10,6 +10,7 @@ namespace DataAccessLayer.Repository
     public interface IControlRepository
     {
         void InsertControl(List<Control> controlData);
+        void ClearLayout();
         List<Control> GetControlData();
     }
 }

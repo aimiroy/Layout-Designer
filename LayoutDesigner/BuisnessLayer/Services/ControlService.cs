@@ -59,5 +59,13 @@ namespace BuisnessLayer.Services
             }).ToList();
             return controls;
         }
+        
+        /// <summary>
+        /// Clear currently stored control data
+        /// </summary>
+        public void ClearLayout()
+        {
+            _repository.ClearLayout();
+        }
     }
 }
