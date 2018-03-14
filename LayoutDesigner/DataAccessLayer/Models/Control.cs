@@ -14,5 +14,6 @@ namespace DataAccessLayer.Models
         public bool IsVisible { get; set; }
         public bool IsReadOnly { get; set; }
         public int Order { get; set; }
+        public string Value { get; set; }
     }
 }

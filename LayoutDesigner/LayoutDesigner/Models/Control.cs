@@ -23,5 +23,9 @@ namespace LayoutDesigner.Models
         public bool IsReadOnly { get; set; }
         
         public int Order { get; set; }
+
+        [DataType(DataType.Text)]
+        [StringLength(120)]
+        public string Value { get; set; }
     }
 }

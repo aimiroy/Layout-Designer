@@ -7,12 +7,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BuisnessLayer.DTO;
+using System.Text;
+
 namespace LayoutDesigner.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IControlService _controlService = null;
-
+        static List<UserInput> summary = new List<UserInput>();
         public HomeController(IControlService controlService)
         {
             this._controlService = controlService;
@@ -48,6 +50,38 @@ namespace LayoutDesigner.Controllers
             return View(controlToShow);
         }
 
+        [HttpPost]
+        public ActionResult DisplayControl(FormCollection form)
+        {
+            var controlToShow = GetStoredControl();
+            
+            foreach (var control in controlToShow)
+            {
+                if(control.IsVisible && !control.IsReadOnly)
+                {
+                    var input = new UserInput()
+                    {
+                        Label = control.Label,
+                        Value = form[control.ControlId].ToString()
+
+                    };
+                    summary.Add(input);
+                }
+            }
+            // return RedirectToAction("ShowData", "Home");
+            return RedirectToAction("DisplayControl", "Home");
+        }
+
+        public ActionResult DisplaySummary()
+        {
+            //ViewBag.data = summary;
+            return PartialView("_Summary", summary);
+        }
+        public ActionResult ShowData()
+        {
+           
+            return View("ShowData", summary);
+        }
         public ActionResult ClearLayout()
         {
             _controlService.ClearLayout();
