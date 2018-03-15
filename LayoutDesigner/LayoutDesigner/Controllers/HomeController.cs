@@ -14,7 +14,6 @@ namespace LayoutDesigner.Controllers
     public class HomeController : Controller
     {
         private readonly IControlService _controlService = null;
-        static List<UserInput> summary = new List<UserInput>();
         public HomeController(IControlService controlService)
         {
             this._controlService = controlService;
@@ -54,7 +53,7 @@ namespace LayoutDesigner.Controllers
         public ActionResult DisplayControl(FormCollection form)
         {
             var controlToShow = GetStoredControl();
-            
+            List<UserInput> summary = new List<UserInput>();
             foreach (var control in controlToShow)
             {
                 if(control.IsVisible && !control.IsReadOnly)
@@ -68,18 +67,27 @@ namespace LayoutDesigner.Controllers
                     summary.Add(input);
                 }
             }
-            // return RedirectToAction("ShowData", "Home");
+            Session["summary"] = summary;
             return RedirectToAction("DisplayControl", "Home");
         }
 
         public ActionResult DisplaySummary()
         {
-            //ViewBag.data = summary;
+            try
+            {
+            var summary= (List<UserInput>)Session["summary"];
+            if(!(summary.Count()==0))
             return PartialView("_Summary", summary);
+            }
+            catch(Exception message)
+            {
+                return Json(message.Message);
+            }
+            return Json("Submit form");
         }
         public ActionResult ShowData()
         {
-           
+            var summary = (List<UserInput>)Session["summary"];
             return View("ShowData", summary);
         }
         public ActionResult ClearLayout()

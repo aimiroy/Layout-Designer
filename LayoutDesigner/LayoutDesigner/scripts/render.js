@@ -1,4 +1,4 @@
-﻿var addedCountrolCount = 0;
+﻿
 $("body").on("click", "#btnAdd", function () {
     if (validateForm()) {
         //Reference the TextBoxes.
@@ -56,6 +56,16 @@ $("body").on("click", "#btnAdd", function () {
         btnRemove.val("Remove");
         cell.append(btnRemove);
 
+        //Add Edit Button cell.
+        var btnEdit = $("<input />");
+        btnEdit.attr("type", "button");
+        btnEdit.attr("onclick", "Edit(this);");
+        btnEdit.attr("class", "btn btn-info");
+        btnEdit.attr("id", "btnEdit");
+        btnEdit.val("Edit");
+        cell.append(btnEdit);
+
+
         //Clear the TextBoxes and other controls.
         txtControlId.val("");
         txtLabel.val("");
@@ -82,6 +92,33 @@ function Remove(button) {
         //Delete the Table row using it's Index.
         table.deleteRow(row[0].rowIndex);
     }
+};
+
+function Edit(button) {
+
+    //Determine the reference of the Row using the Button.
+    var row = $(button).closest("TR");
+
+    txtControlId.value = row.find("TD").eq(0).html();
+    txtLabel.value = row.find("TD").eq(1).html();
+    selectType.value=row.find("TD").eq(2).html();
+    if (row.find("TD").eq(3).html() == 'Yes' || row.find("TD").eq(3).html() == 'True')
+        chkVisible.checked= true;
+    else
+        chkVisible.checked = false;
+    if (row.find("TD").eq(4).html() == 'Yes' || row.find("TD").eq(4).html() == 'True')
+        chkReadOnly.checked= true;
+    else
+        chkReadOnly.checked= false;
+    txtOrder.value = row.find("TD").eq(5).html();
+
+
+
+    //Get the reference of the Table.
+    var table = $("#tblControls")[0];
+    table.deleteRow(row[0].rowIndex);
+
+
 };
 
 $("body").on("click", "#btnSave", function () {
@@ -192,5 +229,12 @@ function isEmpty(el) {
     else {
         return false;
     }
+
+
+    
+
+
+
+
 
 }

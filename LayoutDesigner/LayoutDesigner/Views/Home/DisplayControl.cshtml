@@ -136,7 +136,7 @@
             }
             <br />
         }
-        <input type="submit" value="Submit" class="btn btn-primary"/>
+        <input type="submit" value="Submit" class="btn btn-primary" style="margin-left:350px"/>
         <input type="button" value="Summary" class="btn btn-primary" id="btnSummary"/>
 }
  
@@ -158,7 +158,6 @@
             var options = { "backdrop": "static", keyboard: false };
             $.ajax({
                 type: "GET",
-                //url: '@*@Url.Action("DisplaySummary", "Home")*@',
                 url: TeamDetailPostBackURL,
                 contentType: "application/json; charset=utf-8",
                 datatype: "json",
@@ -170,13 +169,10 @@
 
                 },
                 error: function () {
-                    alert("Dynamic content load failed.");
+                    alert("Dynamic content load failed! Submit Data to get Summary.");
                 }
             });
-           // e.preventDefault();
         });
-        //$("#closebtn").on('click',function(){
-        //    $('#myModal').modal('hide');
 
         $("#closbtn").click(function () {
             $('#myModal').modal('hide');
